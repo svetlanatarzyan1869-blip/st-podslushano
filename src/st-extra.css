@@ -1,0 +1,54 @@
+
+/* ── только для SillyTavern ── */
+/* тени текста и прозрачность из тем таверны не пускаем внутрь стены */
+#pdx-root#pdx-root,
+#pdx-root#pdx-root * {
+  text-shadow: none !important;
+  -webkit-text-stroke: 0 !important;
+}
+#pdx-root#pdx-root .pdx-pop {
+  color: var(--p-text);
+  font-size: 13px;
+  line-height: 1.4;
+  text-align: left;
+  white-space: normal;
+}
+/* У таверны на <html> стоит transform — fixed-элементы считаются от <html>, а не от окна,
+   и bottom/right уводят кружок за экран. Ставим его через top/left. */
+#pdx-root#pdx-root .pdx-fab {
+  top: calc(100dvh - 256px);
+  left: calc(100vw - 58px);
+  right: auto;
+  bottom: auto;
+}
+#pdx-root#pdx-root .pdx-pop {
+  right: auto;
+  bottom: auto;
+  top: 60px;
+  left: 12px;
+}
+#pdx-root#pdx-root .pdx-fab[hidden] {
+  display: none !important;
+}
+
+/* страница настроек в «Расширениях» */
+#pdx_settings .inline-drawer-content {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+#pdx_settings p {
+  margin: 4px 0;
+  line-height: 1.4;
+}
+#pdx_settings .pdx-set-row {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+#pdx_settings .pdx-set-own[hidden] {
+  display: none !important;
+}
+#pdx_settings .pdx-set-ver {
+  opacity: 0.6;
+}
