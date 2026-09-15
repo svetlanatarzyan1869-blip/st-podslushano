@@ -243,12 +243,21 @@ async function callOwn(system, user, diag) {
     return content;
 }
 
+// «Думающие» модели (Gemini 2.5/3 Pro и т.п.) тратят лимит ответа ещё и на размышления:
+// с 2400 токенами стена обрывалась на первом посте. Берём не меньше 8192
+// или сколько стоит у таверны в «Макс. длина ответа», если там больше.
+function tavernBudget() {
+    const set = ctx().chatCompletionSettings || {};
+    return Math.max(8192, Number(set.openai_max_tokens) || 0);
+}
+
 async function callTavern(system, user, diag) {
     const t0 = Date.now();
-    diag.maxTokens = MAX_TOKENS;
+    const budget = tavernBudget();
+    diag.maxTokens = budget;
     let text;
     try {
-        text = await ctx().generateRaw({ systemPrompt: system, prompt: user, responseLength: MAX_TOKENS });
+        text = await ctx().generateRaw({ systemPrompt: system, prompt: user, responseLength: budget });
     } catch (e) {
         diag.seconds = (Date.now() - t0) / 1000;
         throw stageError('tavern', (e && e.message) || String(e));
@@ -275,6 +284,8 @@ function parseBlock(raw) {
     return f;
 }
 function hasWall(f) { return !!(f && (f.post1_text || f.post2_text || f.post3_text)); }
+// в стене всегда три поста; без третьего ответ модели оборвался
+function wallComplete(f) { return !!(f && f.post1_text && f.post2_text && f.post3_text); }
 
 /* ══════════════════ подбор сохранёнок и песен ══════════════════ */
 function moodOf(v) { v = String(v || '').toLowerCase().replace(/[^a-z]/g, ''); return MOODS.indexOf(v) >= 0 ? v : null; }
@@ -388,7 +399,7 @@ function audioHtml(id) {
 function actsHtml(likes, comments, reposts, views) {
     return '<div class="pdx-acts">' +
         '<button class="pdx-act pdx-like" type="button" data-n="' + likes + '">' + ICON.heart + '<b>' + short(likes) + '</b></button>' +
-        '<button class="pdx-act" type="button">' + ICON.comment + short(comments) + '</button>' +
+        '<button class="pdx-act pdx-cbtn" type="button" title="Комментарии">' + ICON.comment + short(comments) + '</button>' +
         '<button class="pdx-act" type="button">' + ICON.repost + short(reposts) + '</button>' +
         '<span class="pdx-views">' + ICON.eye + short(views) + '</span></div>';
 }
@@ -421,6 +432,7 @@ function postHtml(f, i, picks, name) {
         h += '<div class="pdx-comms">' + comms.slice(0, visN).join('') +
             hidden.map(c => c.replace('<div class="pdx-com">', '<div class="pdx-com more">')).join('') +
             (hidden.length ? '<button class="pdx-more" type="button">Показать ещё ' + hidden.length + ' ' + plural(hidden.length, ['комментарий', 'комментария', 'комментариев']) + '</button>' : '') +
+            '<button class="pdx-less" type="button">Скрыть комментарии</button>' +
             '</div>';
     }
     h += '</div>';
@@ -574,11 +586,26 @@ function bindWall(f) {
     out.querySelectorAll('.pdx-sub').forEach(b => {
         b.addEventListener('click', e => { e.stopPropagation(); const on = !b.classList.contains('on'); b.classList.toggle('on', on); b.textContent = on ? 'Вы подписаны' : 'Подписаться'; });
     });
+    // комментарии: «Показать ещё» и кнопка 💬 раскрывают все, «Скрыть комментарии» и повторное 💬 — прячут
+    const setComms = (box, state) => {
+        box.classList.toggle('open', state === 'open');
+        box.classList.toggle('shut', state === 'shut');
+        const post = box.closest('.pdx-post');
+        const btn = post && post.querySelector('.pdx-cbtn');
+        if (btn) btn.classList.toggle('on', state === 'open');
+    };
     out.querySelectorAll('.pdx-more').forEach(b => {
+        b.addEventListener('click', e => { e.stopPropagation(); const box = b.closest('.pdx-comms'); if (box) setComms(box, 'open'); });
+    });
+    out.querySelectorAll('.pdx-less').forEach(b => {
+        b.addEventListener('click', e => { e.stopPropagation(); const box = b.closest('.pdx-comms'); if (box) setComms(box, 'shut'); });
+    });
+    out.querySelectorAll('.pdx-cbtn').forEach(b => {
         b.addEventListener('click', e => {
             e.stopPropagation();
-            const box = b.closest('.pdx-comms'); if (box) box.classList.add('open');
-            if (b.parentNode) b.parentNode.removeChild(b);
+            const post = b.closest('.pdx-post');
+            const box = post && post.querySelector('.pdx-comms');
+            if (box) setComms(box, box.classList.contains('open') ? 'shut' : 'open');
         });
     });
     bindOffer();
@@ -649,6 +676,7 @@ function explain(err, diag) {
         if (diag.status >= 500) return 'Ошибка на стороне прокси или провайдера. Нажми ⟳ чуть позже.';
         return 'Провайдер вернул ошибку — подробности ниже.';
     }
+    if (err && err.kind === 'cut') return 'Ответ модели оборвался на середине стены: «думающая» модель потратила лимит на размышления (было ' + (diag.maxTokens || '—') + ' токенов). Нажми ⟳ ещё раз. Если повторяется — увеличь «Макс. длина ответа» в настройках таверны или выбери в Расширения → Подслушано «свой провайдер» с моделью побыстрее.';
     if (err && err.kind === 'parse') return 'Модель ответила не в том формате, стену не из чего собрать. Нажми ⟳ ещё раз; если повторяется — смени модель.';
     return 'Что-то пошло не так на шаге «' + (diag.stage || '?') + '».';
 }
@@ -723,6 +751,7 @@ async function genWall() {
         diag.stage = 'разбор ответа';
         const f = parseBlock(raw);
         if (!hasWall(f)) throw stageError('parse', 'в ответе нет постов', { raw: String(raw || '(пусто)').slice(0, 300) });
+        if (!wallComplete(f)) throw stageError('cut', 'ответ модели оборвался', { raw: String(raw || '').slice(-300) });
         diag.stage = 'сохранение';
         const prev = metaGet(ST_KEY);
         const picks = makePicks(f, (prev && prev.recent) || []);
@@ -746,7 +775,8 @@ function ensureFresh() {
 function fillOnOpen() {
     if (!hasChat()) { showNoChat(); return; }
     const st = metaGet(ST_KEY);
-    if (st && st.fields) { renderWall(st.fields, st.picks); return; }
+    // оборванную стену (сохранилась до 1.0.1) не показываем — пишем заново
+    if (st && wallComplete(st.fields)) { renderWall(st.fields, st.picks); return; }
     if (!configured()) { showSetupHint(); return; }
     genWall();
 }

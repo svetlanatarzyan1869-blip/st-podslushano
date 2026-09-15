@@ -11,7 +11,7 @@ from PIL import Image
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
 TAVO = os.path.join(ROOT, '..', 'podslushano')
-VERSION = '1.0.0'
+VERSION = '1.0.2'
 MOODS = 'love longing sad jealous party street sunset cozy funny sassy drama flirt'.split()
 STICKER_IDS = ['03', '06', '08', '11', '16', '23', '25', '31', '39', '48']
 AVATAR_ID = '10'   # Спотти с большими глазами — аватар паблика

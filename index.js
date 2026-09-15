@@ -12,7 +12,7 @@
  * Сборка: python3 build.py (подставляет альбом, песни и стикеры).
  * ========================================================================== */
 const MODULE = 'podslushano';
-const VERSION = "1.0.0";
+const VERSION = "1.0.2";
 const PROXY_URL = 'https://podslushano-album.spletnik-meme-worker.workers.dev/relay';
 const ALBUM_URL = 'https://podslushano-album.spletnik-meme-worker.workers.dev/img/';
 const ALBUM = [{"id": "01", "tags": ["street", "party"], "w": 600, "h": 595}, {"id": "02", "tags": ["party", "street"], "w": 548, "h": 600}, {"id": "03", "tags": ["funny"], "w": 480, "h": 480}, {"id": "04", "tags": ["street"], "w": 600, "h": 590}, {"id": "05", "tags": ["sunset", "street"], "w": 600, "h": 562}, {"id": "06", "tags": ["longing", "sad"], "w": 600, "h": 400}, {"id": "07", "tags": ["sunset"], "w": 450, "h": 600}, {"id": "08", "tags": ["street"], "w": 600, "h": 600}, {"id": "09", "tags": ["funny", "flirt"], "w": 600, "h": 394}, {"id": "10", "tags": ["love"], "w": 600, "h": 600}, {"id": "11", "tags": ["flirt", "love"], "w": 600, "h": 600}, {"id": "12", "tags": ["party"], "w": 600, "h": 578}, {"id": "13", "tags": ["sassy", "jealous", "longing"], "w": 600, "h": 591}, {"id": "14", "tags": ["sunset"], "w": 600, "h": 600}, {"id": "15", "tags": ["sassy"], "w": 600, "h": 600}, {"id": "16", "tags": ["drama", "sad", "jealous"], "w": 600, "h": 600}, {"id": "17", "tags": ["street", "sassy"], "w": 600, "h": 599}, {"id": "18", "tags": ["cozy"], "w": 500, "h": 499}, {"id": "19", "tags": ["party"], "w": 512, "h": 600}, {"id": "20", "tags": ["funny", "cozy"], "w": 600, "h": 600}, {"id": "21", "tags": ["longing", "love"], "w": 600, "h": 600}, {"id": "22", "tags": ["love", "cozy"], "w": 600, "h": 592}, {"id": "23", "tags": ["party", "drama"], "w": 600, "h": 600}, {"id": "24", "tags": ["love", "longing"], "w": 540, "h": 417}, {"id": "25", "tags": ["flirt"], "w": 600, "h": 600}, {"id": "26", "tags": ["sad", "jealous"], "w": 512, "h": 600}, {"id": "27", "tags": ["sunset", "sad"], "w": 480, "h": 480}, {"id": "28", "tags": ["love"], "w": 540, "h": 405}, {"id": "29", "tags": ["longing"], "w": 600, "h": 600}, {"id": "30", "tags": ["drama"], "w": 600, "h": 599}, {"id": "31", "tags": ["cozy", "love", "funny"], "w": 600, "h": 600}, {"id": "32", "tags": ["cozy", "flirt"], "w": 600, "h": 399}, {"id": "33", "tags": ["love", "flirt"], "w": 500, "h": 600}, {"id": "34", "tags": ["flirt", "funny"], "w": 540, "h": 382}, {"id": "35", "tags": ["love", "longing"], "w": 600, "h": 600}, {"id": "36", "tags": ["love", "sad"], "w": 450, "h": 600}, {"id": "37", "tags": ["love"], "w": 500, "h": 500}, {"id": "38", "tags": ["sassy", "drama", "jealous"], "w": 600, "h": 454}, {"id": "39", "tags": ["flirt"], "w": 540, "h": 535}, {"id": "40", "tags": ["cozy", "love"], "w": 600, "h": 600}, {"id": "41", "tags": ["longing"], "w": 600, "h": 450}, {"id": "42", "tags": ["love"], "w": 600, "h": 600}, {"id": "43", "tags": ["love", "cozy"], "w": 600, "h": 451}, {"id": "44", "tags": ["love", "sunset"], "w": 600, "h": 598}, {"id": "45", "tags": ["funny", "sassy"], "w": 600, "h": 559}, {"id": "46", "tags": ["street", "sad"], "w": 600, "h": 589}, {"id": "47", "tags": ["sunset", "longing"], "w": 600, "h": 573}, {"id": "48", "tags": ["sad"], "w": 600, "h": 600}, {"id": "49", "tags": ["sassy", "funny"], "w": 500, "h": 498}, {"id": "50", "tags": ["street"], "w": 500, "h": 500}, {"id": "51", "tags": ["street", "sassy"], "w": 551, "h": 600}, {"id": "52", "tags": ["street", "funny"], "w": 600, "h": 600}, {"id": "53", "tags": ["party", "funny"], "w": 600, "h": 600}, {"id": "54", "tags": ["sassy", "drama"], "w": 600, "h": 600}, {"id": "55", "tags": ["sunset", "street"], "w": 600, "h": 599}, {"id": "56", "tags": ["funny", "cozy", "party"], "w": 476, "h": 592}, {"id": "57", "tags": ["party"], "w": 600, "h": 600}, {"id": "58", "tags": ["party"], "w": 600, "h": 600}, {"id": "59", "tags": ["funny", "street"], "w": 600, "h": 600}, {"id": "60", "tags": ["cozy"], "w": 600, "h": 600}, {"id": "61", "tags": ["street"], "w": 600, "h": 598}, {"id": "62", "tags": ["longing", "love"], "w": 600, "h": 600}, {"id": "63", "tags": ["love"], "w": 600, "h": 450}, {"id": "64", "tags": ["love", "funny"], "w": 597, "h": 595}, {"id": "65", "tags": ["flirt"], "w": 461, "h": 461}, {"id": "66", "tags": ["cozy", "flirt"], "w": 600, "h": 600}, {"id": "67", "tags": ["funny", "love"], "w": 500, "h": 374}, {"id": "68", "tags": ["street"], "w": 554, "h": 548}, {"id": "69", "tags": ["love"], "w": 600, "h": 548}, {"id": "70", "tags": ["love", "drama"], "w": 600, "h": 600}];       // [{id:'07', tags:['sunset'], w:600, h:600}]
@@ -243,12 +243,21 @@ async function callOwn(system, user, diag) {
     return content;
 }
 
+// «Думающие» модели (Gemini 2.5/3 Pro и т.п.) тратят лимит ответа ещё и на размышления:
+// с 2400 токенами стена обрывалась на первом посте. Берём не меньше 8192
+// или сколько стоит у таверны в «Макс. длина ответа», если там больше.
+function tavernBudget() {
+    const set = ctx().chatCompletionSettings || {};
+    return Math.max(8192, Number(set.openai_max_tokens) || 0);
+}
+
 async function callTavern(system, user, diag) {
     const t0 = Date.now();
-    diag.maxTokens = MAX_TOKENS;
+    const budget = tavernBudget();
+    diag.maxTokens = budget;
     let text;
     try {
-        text = await ctx().generateRaw({ systemPrompt: system, prompt: user, responseLength: MAX_TOKENS });
+        text = await ctx().generateRaw({ systemPrompt: system, prompt: user, responseLength: budget });
     } catch (e) {
         diag.seconds = (Date.now() - t0) / 1000;
         throw stageError('tavern', (e && e.message) || String(e));
@@ -275,6 +284,8 @@ function parseBlock(raw) {
     return f;
 }
 function hasWall(f) { return !!(f && (f.post1_text || f.post2_text || f.post3_text)); }
+// в стене всегда три поста; без третьего ответ модели оборвался
+function wallComplete(f) { return !!(f && f.post1_text && f.post2_text && f.post3_text); }
 
 /* ══════════════════ подбор сохранёнок и песен ══════════════════ */
 function moodOf(v) { v = String(v || '').toLowerCase().replace(/[^a-z]/g, ''); return MOODS.indexOf(v) >= 0 ? v : null; }
@@ -388,7 +399,7 @@ function audioHtml(id) {
 function actsHtml(likes, comments, reposts, views) {
     return '<div class="pdx-acts">' +
         '<button class="pdx-act pdx-like" type="button" data-n="' + likes + '">' + ICON.heart + '<b>' + short(likes) + '</b></button>' +
-        '<button class="pdx-act" type="button">' + ICON.comment + short(comments) + '</button>' +
+        '<button class="pdx-act pdx-cbtn" type="button" title="Комментарии">' + ICON.comment + short(comments) + '</button>' +
         '<button class="pdx-act" type="button">' + ICON.repost + short(reposts) + '</button>' +
         '<span class="pdx-views">' + ICON.eye + short(views) + '</span></div>';
 }
@@ -421,6 +432,7 @@ function postHtml(f, i, picks, name) {
         h += '<div class="pdx-comms">' + comms.slice(0, visN).join('') +
             hidden.map(c => c.replace('<div class="pdx-com">', '<div class="pdx-com more">')).join('') +
             (hidden.length ? '<button class="pdx-more" type="button">Показать ещё ' + hidden.length + ' ' + plural(hidden.length, ['комментарий', 'комментария', 'комментариев']) + '</button>' : '') +
+            '<button class="pdx-less" type="button">Скрыть комментарии</button>' +
             '</div>';
     }
     h += '</div>';
@@ -574,11 +586,26 @@ function bindWall(f) {
     out.querySelectorAll('.pdx-sub').forEach(b => {
         b.addEventListener('click', e => { e.stopPropagation(); const on = !b.classList.contains('on'); b.classList.toggle('on', on); b.textContent = on ? 'Вы подписаны' : 'Подписаться'; });
     });
+    // комментарии: «Показать ещё» и кнопка 💬 раскрывают все, «Скрыть комментарии» и повторное 💬 — прячут
+    const setComms = (box, state) => {
+        box.classList.toggle('open', state === 'open');
+        box.classList.toggle('shut', state === 'shut');
+        const post = box.closest('.pdx-post');
+        const btn = post && post.querySelector('.pdx-cbtn');
+        if (btn) btn.classList.toggle('on', state === 'open');
+    };
     out.querySelectorAll('.pdx-more').forEach(b => {
+        b.addEventListener('click', e => { e.stopPropagation(); const box = b.closest('.pdx-comms'); if (box) setComms(box, 'open'); });
+    });
+    out.querySelectorAll('.pdx-less').forEach(b => {
+        b.addEventListener('click', e => { e.stopPropagation(); const box = b.closest('.pdx-comms'); if (box) setComms(box, 'shut'); });
+    });
+    out.querySelectorAll('.pdx-cbtn').forEach(b => {
         b.addEventListener('click', e => {
             e.stopPropagation();
-            const box = b.closest('.pdx-comms'); if (box) box.classList.add('open');
-            if (b.parentNode) b.parentNode.removeChild(b);
+            const post = b.closest('.pdx-post');
+            const box = post && post.querySelector('.pdx-comms');
+            if (box) setComms(box, box.classList.contains('open') ? 'shut' : 'open');
         });
     });
     bindOffer();
@@ -649,6 +676,7 @@ function explain(err, diag) {
         if (diag.status >= 500) return 'Ошибка на стороне прокси или провайдера. Нажми ⟳ чуть позже.';
         return 'Провайдер вернул ошибку — подробности ниже.';
     }
+    if (err && err.kind === 'cut') return 'Ответ модели оборвался на середине стены: «думающая» модель потратила лимит на размышления (было ' + (diag.maxTokens || '—') + ' токенов). Нажми ⟳ ещё раз. Если повторяется — увеличь «Макс. длина ответа» в настройках таверны или выбери в Расширения → Подслушано «свой провайдер» с моделью побыстрее.';
     if (err && err.kind === 'parse') return 'Модель ответила не в том формате, стену не из чего собрать. Нажми ⟳ ещё раз; если повторяется — смени модель.';
     return 'Что-то пошло не так на шаге «' + (diag.stage || '?') + '».';
 }
@@ -723,6 +751,7 @@ async function genWall() {
         diag.stage = 'разбор ответа';
         const f = parseBlock(raw);
         if (!hasWall(f)) throw stageError('parse', 'в ответе нет постов', { raw: String(raw || '(пусто)').slice(0, 300) });
+        if (!wallComplete(f)) throw stageError('cut', 'ответ модели оборвался', { raw: String(raw || '').slice(-300) });
         diag.stage = 'сохранение';
         const prev = metaGet(ST_KEY);
         const picks = makePicks(f, (prev && prev.recent) || []);
@@ -746,7 +775,8 @@ function ensureFresh() {
 function fillOnOpen() {
     if (!hasChat()) { showNoChat(); return; }
     const st = metaGet(ST_KEY);
-    if (st && st.fields) { renderWall(st.fields, st.picks); return; }
+    // оборванную стену (сохранилась до 1.0.1) не показываем — пишем заново
+    if (st && wallComplete(st.fields)) { renderWall(st.fields, st.picks); return; }
     if (!configured()) { showSetupHint(); return; }
     genWall();
 }
