@@ -105,6 +105,11 @@
 #pdx-root#pdx-root .pdx-more:active { opacity: 0.6; }
 #pdx-root#pdx-root .pdx-com.more { display: none; }
 #pdx-root#pdx-root .pdx-comms.open .pdx-com.more { display: flex; border-top: 1px solid var(--p-line); }
+#pdx-root#pdx-root .pdx-comms.shut { display: none; }
+#pdx-root#pdx-root .pdx-comms.open .pdx-more { display: none; }
+#pdx-root#pdx-root .pdx-less { display: none; width: 100%; border: none; background: none; text-align: left; font-size: 13px; color: var(--p-link); padding: 8px 0 4px; cursor: pointer; }
+#pdx-root#pdx-root .pdx-comms.open .pdx-less { display: block; }
+#pdx-root#pdx-root .pdx-act.pdx-cbtn.on { color: var(--p-link); }
 #pdx-root#pdx-root .pdx-quote .pdx-text { font-size: 14px; line-height: 1.5; }
 #pdx-root#pdx-root .pdx-com { display: flex; gap: 10px; padding: 8px 0; }
 #pdx-root#pdx-root .pdx-com + .pdx-com { border-top: 1px solid var(--p-line); }
@@ -208,27 +213,3 @@
   opacity: 0.6;
 }
 
-/* комментарии скрываются и раскрываются: кнопка 💬 под постом, «Показать ещё», «Скрыть комментарии» */
-#pdx-root#pdx-root .pdx-comms.shut {
-  display: none;
-}
-#pdx-root#pdx-root .pdx-comms.open .pdx-more {
-  display: none;
-}
-#pdx-root#pdx-root .pdx-less {
-  display: none;
-  width: 100%;
-  border: none;
-  background: none;
-  text-align: left;
-  font-size: 13px;
-  color: var(--p-link);
-  padding: 8px 0 4px;
-  cursor: pointer;
-}
-#pdx-root#pdx-root .pdx-comms.open .pdx-less {
-  display: block;
-}
-#pdx-root#pdx-root .pdx-act.pdx-cbtn.on {
-  color: var(--p-link);
-}
