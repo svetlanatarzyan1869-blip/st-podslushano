@@ -713,14 +713,14 @@ function copyText(text) {
         document.body.appendChild(ta); ta.select(); done = document.execCommand('copy'); document.body.removeChild(ta);
     } catch (e) { /* ничего */ }
     if (!done) { try { navigator.clipboard.writeText(text); done = true; } catch (e) { /* ничего */ } }
-    toast(done ? '📋 скопировано — пришли это Claude' : 'не получилось скопировать — сделай скриншот');
+    toast(done ? '📋 скопировано — пришли это Светлячку' : 'не получилось скопировать — сделай скриншот');
 }
 
 function showError(err, diag) {
     const text = diagText(err, diag);
     out.innerHTML = '<div class="pdx-errcard"><div class="pdx-errt">Не получилось обновить стену</div>' +
         '<div class="pdx-errh">' + esc(explain(err, diag)) + '</div>' +
-        '<details class="pdx-diag"><summary>Подробности для Claude</summary><div class="pdx-diagtext">' + esc(text) + '</div></details>' +
+        '<details class="pdx-diag"><summary>Подробности для Светлячка</summary><div class="pdx-diagtext">' + esc(text) + '</div></details>' +
         '<div class="pdx-errbtns" style="margin-top:10px"><button class="pdx-btn pdx-retry" type="button">⟳ Ещё раз</button><button class="pdx-btn ghost pdx-copy" type="button">Скопировать подробности</button></div></div>';
     out.querySelector('.pdx-retry').addEventListener('click', e => { e.stopPropagation(); genWall(); });
     out.querySelector('.pdx-copy').addEventListener('click', e => { e.stopPropagation(); copyText(text); });

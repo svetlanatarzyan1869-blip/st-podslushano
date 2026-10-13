@@ -21,13 +21,13 @@
 #pdx-root#pdx-root.open .pdx-fab { opacity: 1; }
 
 /* ── окно ── */
-#pdx-root#pdx-root .pdx-pop { position: fixed; right: 12px; bottom: 124px; width: min(420px, calc(100vw - 24px)); max-height: 78vh; z-index: 2147483000; display: none; flex-direction: column; border-radius: 8px; overflow: hidden; background: var(--p-ground); box-shadow: 0 10px 36px var(--p-shadow); animation: pdx-in 0.18s ease; }
+#pdx-root#pdx-root .pdx-pop { position: fixed; right: 12px; bottom: 124px; width: min(340px, calc(100vw - 24px)); max-height: 70vh; z-index: 2147483000; display: none; flex-direction: column; border-radius: 8px; overflow: hidden; background: var(--p-ground); box-shadow: 0 10px 36px var(--p-shadow); animation: pdx-in 0.18s ease; }
 #pdx-root#pdx-root.open .pdx-pop { display: flex; }
 @keyframes pdx-in { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
-#pdx-root#pdx-root .pdx-bar { flex: none; display: flex; align-items: center; justify-content: space-between; gap: 8px; height: 44px; padding: 0 6px 0 14px; background: var(--p-head); color: #fff; }
-#pdx-root#pdx-root .pdx-bar-t { font-size: 15px; font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+#pdx-root#pdx-root .pdx-bar { flex: none; display: flex; align-items: center; justify-content: space-between; gap: 8px; height: 36px; padding: 0 4px 0 12px; background: var(--p-head); color: #fff; }
+#pdx-root#pdx-root .pdx-bar-t { font-size: 13px; font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 #pdx-root#pdx-root .pdx-tools { display: flex; gap: 2px; flex: none; }
-#pdx-root#pdx-root .pdx-tools button { width: 34px; height: 34px; border: none; border-radius: 50%; background: transparent; color: #fff; font-size: 16px; cursor: pointer; opacity: 0.85; }
+#pdx-root#pdx-root .pdx-tools button { width: 30px; height: 30px; border: none; border-radius: 50%; background: transparent; color: #fff; font-size: 16px; cursor: pointer; opacity: 0.85; }
 #pdx-root#pdx-root .pdx-tools button:active { background: rgba(255, 255, 255, 0.15); }
 #pdx-root#pdx-root .pdx-refresh.spin { animation: pdx-spin 0.9s linear infinite; opacity: 1; }
 @keyframes pdx-spin { to { transform: rotate(360deg); } }
@@ -158,6 +158,10 @@
 #pdx-root#pdx-root .pdx-offertext:focus { border-color: var(--p-accent); }
 #pdx-root#pdx-root .pdx-pending { border-top: 1px solid var(--p-line); padding: 10px 14px; font-size: 13px; color: var(--p-sub); line-height: 1.45; }
 #pdx-root#pdx-root .pdx-publish { border: none; background: none; padding: 0; color: var(--p-link); font-size: 13px; cursor: pointer; }
+
+
+/* по её просьбе стена компактнее: содержимое уменьшено целиком */
+#pdx-root#pdx-root .pdx-out { zoom: 0.86; }
 
 /* ── только для SillyTavern ── */
 /* тени текста и прозрачность из тем таверны не пускаем внутрь стены */
