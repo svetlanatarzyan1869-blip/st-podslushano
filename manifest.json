@@ -1,12 +1,9 @@
 {
-  "display_name": "Подслушано 👂",
+  "display_name": "Подслушано 👂 (отключено)",
   "loading_order": 100,
-  "requires": [],
-  "optional": [],
   "js": "index.js",
-  "css": "style.css",
   "author": "Света русреал",
-  "version": "1.0.3",
-  "homePage": "https://github.com/svetlanatarzyan1869-blip/st-podslushano",
-  "auto_update": true
+  "version": "2.0.0",
+  "auto_update": true,
+  "homePage": "https://github.com/svetlanatarzyan1869-blip/st-podslushano"
 }
